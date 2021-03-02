@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取文本域的光标位置</title>
+</head>
+<body>
+<textarea name="" id="textarea" cols="30" rows="10">这是一段文字，每次点击文字内容就会获取当前光标所在的位置</textarea>
+<script>
+    var oText = document.getElementById('textarea');
+     document.onclick = function(e){
+         if(e.target.tagName=="TEXTAREA"){
+             alert(getCursortPosition(oText));
+         }
+     }
+    function getCursortPosition(obj) {
+        var cursorIndex = 0;
+        if (document.selection) {
+            // IE Support
+            obj.focus();
+            var range = document.selection.createRange();
+            range.moveStart('character', -obj.value.length);
+            cursorIndex = range.text.length;
+        } else if (obj.selectionStart || obj.selectionStart==0) {
+            // another support
+            cursorIndex = obj.selectionStart;
+        }
+        return cursorIndex;
+    }
+</script>
+</body>
+</html>

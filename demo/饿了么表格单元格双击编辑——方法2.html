@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <title>demo</title>
+</head>
+<style>
+    html,
+    body,
+    #app {
+        width: 100%;
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <el-table :data="tableData" style="width: 100%">
+            <el-table-column prop="date" label="日期" width="180">
+                <template slot-scope="scope">
+                    <el-input :id="scope.$index+'_id_'+0" v-if="(editIndex == scope.$index) && columnIndex === 0" v-model="scope.row.date"></el-input>
+                    <span @dblclick="editCurrRow(scope,scope.$index,'rowkeY', 0)" v-else>{{scope.row.date}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="name" label="姓名" width="180">
+                <template slot-scope="scope">
+                    <el-input :id="scope.$index+'_id_'+ 1"  v-if="(editIndex == scope.$index) && columnIndex === 1" v-model="scope.row.name"></el-input>
+                    <span @dblclick="editCurrRow(scope,scope.$index,'rowkeY', 1)" v-else>{{scope.row.name}}</span>
+
+                </template>
+
+            </el-table-column>
+            <el-table-column prop="address" label="地址">
+                <template slot-scope="scope">
+                    <el-input :id="scope.$index+'_id_'+ 2"  v-if=" (editIndex == scope.$index) && columnIndex === 2" v-model="scope.row.address"></el-input>
+                    <span @dblclick="editCurrRow(scope,scope.$index,'rowkeY',2)" v-else>{{scope.row.address}}</span>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            tableData: [{
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-04',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1517 弄'
+            }, {
+                date: '2016-05-01',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1519 弄'
+            }, {
+                date: '2016-05-03',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1516 弄'
+            }],
+            editIndex: -1,
+           // showVisiable: false,
+            columnIndex: -1,
+        },
+        methods: {
+            editCurrRow(scope, rowId, str,columnIndex) {
+                this.columnIndex = columnIndex;
+                this.editIndex = rowId;//不加editIndex,整个列都会一块变成可编辑
+               // this.showVisiable = true;
+                let id = `${rowId}_id_${columnIndex}`;
+                console.log(id);
+                //也可以用this.$nextTick，个人感觉加个0.01秒的延时比下次渲染灵活一点
+                setTimeout(() => {
+                    document.getElementById(id).focus();
+                }, 100)
+            }
+        }
+    })		 
+</script>
+
+</html>

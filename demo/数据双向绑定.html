@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		span {
+			padding: 0 10px;
+			border: 1px solid #eee;
+			margin: 0 5px;
+			cursor: pointer;
+		}
+		#box_1 {
+			min-height: 20px;
+			margin-top: 40px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div id="box"></div>
+		<div id="box_1"></div>
+	</div>
+	<script type="text/javascript">
+		const dom = document.getElementById('box')
+		const dom_1 = document.getElementById('box_1')
+		let arr = [1,2,3,4,5], ary = []
+		for(let i = 0; i< arr.length; i++){
+			let span = document.createElement('span')
+			span.innerText = arr[i]
+			span.setAttribute('data-index', i)
+			dom.append(span)
+		}
+		
+		function proxyHandler(dom){
+			
+			const scan = {
+				get(target, value){
+					console.log(target, value)
+					return
+				},
+				set(target, key, value){
+					console.log(target);
+					// dom.innerHTML = ''
+					// target[key] = value
+					// for(let i = 0; i< target.length; i++){
+					// 	let span = document.createElement('span')
+					// 	span.innerText = arr[i]
+					// 	span.setAttribute('data-index', i)
+					// 	dom.append(span)
+					// 	console.log(dom);
+					// }
+				},
+				deleteProperty(target, property) {
+					console.log(target, property);
+					target.splice(property, 1)
+					return true
+				}
+			}
+			 return scan
+		}
+		
+		const proxy = new Proxy(arr, proxyHandler(dom))
+		const proxy_1 = new Proxy(ary, proxyHandler(dom_1))
+			
+		dom.addEventListener('click', function(e){
+			const index = e.target.getAttribute('data-index')
+			console.log(proxy);
+			// proxy[index] = 'asdf'
+			delete proxy[index]
+			console.log(arr);
+		})
+		
+		dom_1.addEventListener('click', function(e){
+			const index = e.target.innerText
+			let span = document.createElement('span')
+			span.innerText = index
+			dom.append(span)
+			this.removeChild(e.target)
+		})
+	</script>
+</body>
+</html>

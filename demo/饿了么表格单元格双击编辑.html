@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<style type="text/css">
+			.kk {
+				width: 100%;
+				height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<el-table :data="tableData" border>
+				<el-table-column label="序号" width="200" align="center" type="index"></el-table-column>
+				<el-table-column label="姓名" align="center">
+					<template slot-scope="{row, $index}">
+						<div class="kk" style="cursor: pointer;" @dblclick="clickDiv" @blur="divBlur($event, $index, 'name')">{{row.name}}</div>
+					</template>
+				</el-table-column>
+				<el-table-column label="年龄" align="center">
+					<template slot-scope="{row, $index}">
+						<div class="kk" style="cursor: pointer;" @dblclick="clickDiv" @blur="divBlur($event, $index, 'age')">{{row.age}}</div>
+					</template>
+				</el-table-column>
+				<el-table-column label="性别" align="center">
+					<template slot-scope="{row, $index}">
+						<div class="kk" style="cursor: pointer;" @dblclick="clickDiv" @blur="divBlur($event, $index, 'sex')">{{row.sex}}</div>
+					</template>
+				</el-table-column>
+			</el-table>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script type="text/javascript">
+			const table_data = [
+				{
+					id: 1,
+					name: '小明',
+					age: 18,
+					sex: '男'
+				},
+				{
+					id: 2,
+					name: '小红',
+					age: 17,
+					sex: '女'
+				},
+				{
+					id: 3,
+					name: '小刚',
+					age: 20,
+					sex: '男'
+				}
+			]
+			new Vue({
+				el: '#app',
+				data: {
+					msg: 123,
+					tableData: table_data,
+					cell_name: ''
+				},
+				methods:{
+					// div双击事件
+					clickDiv(e){
+						e.target.setAttribute('contenteditable', true)
+						e.target.style.border = '1px solid #ccc'
+						e.target.focus()
+					},
+					// div失去焦点事件
+					divBlur(e, index, filed_name){
+						e.target.setAttribute('contenteditable', false)
+						e.target.style.border = '0 none'
+						this.tableData[index][filed_name] = e.target.innerText  // 更新修改的单元格的值
+						console.log(this.tableData);
+					},
+				}
+			})
+		</script>
+	</body>
+</html>

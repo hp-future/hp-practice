@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      width: 400px;
+      height: 500px;
+      margin: 100px auto;
+      background-color: #ddd;
+      overflow: hidden;
+    }
+    .title {
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      background-color: #fff;
+      margin-top: 20px;
+      border: 0 none;
+      outline-style: none;
+    }
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      justify-content: center;
+    }
+    .btns>div{
+      width: 70px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 4px;
+      margin: 0 5px 5px 0;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .btns>div:hover {
+      background-color: #eee;
+      color: #fff;
+    }
+    .btns>div:nth-child(5), .btns>div:nth-child(10){
+      margin-right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <input type="text" class="title" id="title">
+    <div class="btns" id="btn">
+      <div>[</div>
+      <div>]</div>
+      <div>(</div>
+      <div>)</div>
+      <div>,</div>
+      <div><</div>
+      <div>></div>
+      <div>≥</div>
+      <div>≤</div>
+      <div>=</div>
+    </div>
+  </div>
+  <script>
+    let str = ''
+    document.getElementById('btn').addEventListener('click', function(e){
+      if(e.target.innerText.length > 1) return false
+      str += e.target.innerText
+      document.getElementById('title').value = str
+    }, false)
+  </script>
+</body>
+</html>

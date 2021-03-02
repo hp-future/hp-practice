@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  .home-container
+    .top
+      .head-img-box
+        .drop-down-box
+          p(onclick="openUserInfo()") 个人中心
+          p 退出登录
+  
+  //- 个人中心弹窗
+  .user-info-box
+    
+  script(src="/js/home/userInfo.js")

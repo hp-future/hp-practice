@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <script src="./jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <title>tab切换</title>
+
+</head>
+
+<body>
+  <div class="tab_box">
+    <ul id="ul_box">
+      <li class="tab_active" data-index="1">
+        <span id="tab_1">检测数据</span>
+      </li>
+      <li class="no-underline" data-index="2">
+        <span id="tab_2">通用物质</span>
+      </li>
+      <li class="no-underline" data-index="3">
+        <span id="tab_3">试剂剩余量</span>
+      </li>
+      <li class="no-underline" data-index="4">
+        <span id="tab_4">质控品</span>
+      </li>
+      <li class="no-underline" data-index="5">
+        <span id="tab_5">质控数据</span>
+      </li>
+      <li class="no-underline" data-index="6">
+        <span id="tab_6">质控图</span>
+      </li>
+      <li class="no-underline" data-index="7">
+        <span id="tab_7">定标曲线</span>
+      </li>
+      <li class="no-underline" data-index="8">
+        <span id="tab_8">异常信息</span>
+      </li>
+    </ul>
+  </div>
+  <div class="content_tab">
+    <div id="con_tab1" class="con_active">检测数据</div>
+    <div id="con_tab2" class="con_no_active">通用物质</div>
+    <div id="con_tab3" class="con_no_active">实际剩余量</div>
+    <div id="con_tab4" class="con_no_active">质控品</div>
+    <div id="con_tab5" class="con_no_active">质控数据</div>
+    <div id="con_tab6" class="con_no_active">质控图</div>
+    <div id="con_tab7" class="con_no_active">定标曲线</div>
+    <div id="con_tab8" class="con_no_active">异常信息</div>
+  </div>
+</body>
+<script>
+  $('li').click(function () {
+    $(this).removeClass("no-underline").addClass("tab_active").siblings().addClass("no-underline").removeClass("tab_active")
+    var index = Number($(this).attr('data-index'))
+    $('#con_tab' + index).addClass("con_active").removeClass("con_no_active").siblings().addClass("con_no_active")
+  })
+</script>
+
+</html>

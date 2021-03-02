@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 200px;
+      height: 200px;
+      border: 1px solid red;
+      margin: 100px auto;
+      text-align: center;
+      padding-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <label>日
+      <input name="date-time" value="day" type="radio" checked="checked">
+    </label>
+    <label>周
+      <input name="date-time" value="week" type="radio">
+    </label>
+    <label>月
+      <input name="date-time" value="month" type="radio">
+    </label>
+  </div>
+
+  <script>
+    const box_dom = document.getElementById("box")
+    const radio = document.getElementsByName("date-time")
+    box_dom.addEventListener("click", function (e) {
+      console.log(e.target);
+      e.stopPropagation()
+      return false
+      if (e.target.name == "date-time") {
+        graTimeChange()
+      }
+    }, false)
+
+    function graTimeChange() {
+      /*判断选择的是哪个radio*/
+      for (var i = 0; i < radio.length; i++) {
+        console.log(radio[i].checked)
+        if (radio[i].checked) {
+          str = radio[i].value
+          console.log(str)
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
